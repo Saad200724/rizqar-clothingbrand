@@ -111,27 +111,28 @@ export function Navigation() {
                 <User className="w-5 h-5" />
               </motion.button>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={openCart}
-                className="relative p-2.5 rounded-xl hover:bg-secondary transition-colors"
-                aria-label="Cart"
-              >
-                <ShoppingBag className="w-5 h-5" />
-                <AnimatePresence>
-                  {itemCount > 0 && (
-                    <motion.span
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      exit={{ scale: 0 }}
-                      className="absolute -top-1 -right-1 w-5 h-5 bg-accent text-accent-foreground text-xs font-semibold rounded-full flex items-center justify-center"
-                    >
-                      {itemCount}
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </motion.button>
+              <Link to="/cart" className="relative">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative p-2.5 rounded-xl hover:bg-secondary transition-colors"
+                  aria-label="Cart"
+                >
+                  <ShoppingBag className="w-5 h-5" />
+                  <AnimatePresence>
+                    {itemCount > 0 && (
+                      <motion.span
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        exit={{ scale: 0 }}
+                        className="absolute -top-1 -right-1 w-5 h-5 bg-accent text-accent-foreground text-xs font-semibold rounded-full flex items-center justify-center"
+                      >
+                        {itemCount}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </motion.button>
+              </Link>
 
               {/* Mobile Menu Toggle */}
               <motion.button
