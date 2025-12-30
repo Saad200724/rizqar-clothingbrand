@@ -8,6 +8,35 @@ import { toast } from "sonner";
 import { useNavigate, Link } from "react-router-dom";
 import { CheckCircle2, ShoppingBag, PhoneCall, ShoppingCart } from "lucide-react";
 
+// Bangladesh Divisions and Districts
+const BD_DIVISIONS = [
+  { name: "Dhaka", id: "dhaka" },
+  { name: "Chattogram", id: "chattogram" },
+  { name: "Khulna", id: "khulna" },
+  { name: "Rajshahi", id: "rajshahi" },
+  { name: "Rangpur", id: "rangpur" },
+  { name: "Barisal", id: "barisal" },
+  { name: "Sylhet", id: "sylhet" },
+  { name: "Mymensingh", id: "mymensingh" }
+];
+
+const BD_DISTRICTS: Record<string, string[]> = {
+  dhaka: ["Dhaka", "Faridpur", "Gazipur", "Manikganj", "Munshiganj", "Narayanganj", "Shariatpur", "Tangail"],
+  chattogram: ["Chattogram", "Bandarban", "Brahmanbaria", "Chandpur", "Cumilla", "Cox's Bazar", "Feni", "Khagrachari", "Lakshmipur", "Noakhali"],
+  khulna: ["Khulna", "Bagerhat", "Chuadanga", "Jessore", "Jhenaidah", "Khulna", "Magura", "Narail", "Satkhira"],
+  rajshahi: ["Rajshahi", "Bogura", "Joypurhat", "Naogaon", "Natore", "Nawabganj", "Pabna", "Rajshahi"],
+  rangpur: ["Rangpur", "Dinajpur", "Gaibandha", "Kurigram", "Lalmonirhat", "Nilphamari", "Panchagarh", "Rangpur", "Thakurgaon"],
+  barisal: ["Barisal", "Barguna", "Barisal", "Bhola", "Jhalokati", "Jhaloketo", "Patuakhali", "Pirojpur"],
+  sylhet: ["Sylhet", "Habiganj", "Moulvibazar", "Sunamganj", "Sylhet"],
+  mymensingh: ["Mymensingh", "Jamalpur", "Kishoreganj", "Mymensingh", "Netrokona"]
+};
+
+const DHAKA_DISTRICTS = ["Dhaka"];
+const SHIPPING_COST = {
+  dhaka: 80,
+  other: 130
+};
+
 export default function Checkout() {
   const { items, clearCart } = useCartStore();
   const cartTotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -41,13 +70,18 @@ export default function Checkout() {
     );
   }
 
+  // Calculate shipping cost
+  const shippingCost = DHAKA_DISTRICTS.includes(formData.district) ? SHIPPING_COST.dhaka : SHIPPING_COST.other;
+  const tax = Math.round(cartTotal * 0.1);
+  const grandTotal = cartTotal + (formData.district ? shippingCost : 0) + tax;
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const newOrder = {
       id: `#ORD-${Math.floor(1000 + Math.random() * 9000)}`,
       customer: `${formData.firstName} ${formData.lastName}`,
       date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-      total: `৳${cartTotal.toLocaleString()}`,
+      total: `৳${grandTotal.toLocaleString()}`,
       status: "Pending",
       items: items.length
     };
@@ -136,17 +170,20 @@ export default function Checkout() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="division" className="text-sm font-semibold text-white">Division *</Label>
-                    <select id="division" required className="w-full bg-secondary border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-accent" value={formData.division} onChange={(e) => setFormData({...formData, division: e.target.value})}>
+                    <select id="division" required className="w-full bg-secondary border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-accent" value={formData.division} onChange={(e) => setFormData({...formData, division: e.target.value, district: ""})}>
                       <option value="">Select Division</option>
-                      <option value="Dhaka">Dhaka</option>
-                      <option value="Chattogram">Chattogram</option>
+                      {BD_DIVISIONS.map((div) => (
+                        <option key={div.id} value={div.id}>{div.name}</option>
+                      ))}
                     </select>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="district" className="text-sm font-semibold text-white">District *</Label>
-                    <select id="district" required className="w-full bg-secondary border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-accent" value={formData.district} onChange={(e) => setFormData({...formData, district: e.target.value})}>
+                    <select id="district" required className="w-full bg-secondary border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-accent" value={formData.district} onChange={(e) => setFormData({...formData, district: e.target.value})} disabled={!formData.division}>
                       <option value="">Select District</option>
-                      <option value="Dhaka">Dhaka</option>
+                      {formData.division && BD_DISTRICTS[formData.division]?.map((dist) => (
+                        <option key={dist} value={dist}>{dist}</option>
+                      ))}
                     </select>
                   </div>
                   <div className="space-y-2">
@@ -207,18 +244,16 @@ export default function Checkout() {
                     <span className="font-bold text-white">৳{cartTotal.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Delivery Charge</span>
-                    <span className="font-bold text-white">৳0</span>
+                    <span className="text-muted-foreground">Shipping</span>
+                    <span className="font-bold text-white">{formData.district ? `৳${shippingCost}` : "TBD"}</span>
                   </div>
-                  <div className="p-4 bg-accent/10 rounded-lg text-[10px] space-y-1 text-accent border border-accent/20">
-                    <p className="font-bold uppercase flex items-center gap-1"><span className="text-lg leading-none">⚠</span> Select a district above</p>
-                    <p>• Inside Dhaka: ৳80 (up to 2kg)</p>
-                    <p>• Outside Dhaka: ৳130 (up to 1kg)</p>
-                    <p>Additional ৳20/kg will be charged for extra weight</p>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Tax (10%)</span>
+                    <span className="font-bold text-white">৳{tax.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-lg font-bold pt-4 border-t border-white/10">
                     <span className="text-white">Grand Total</span>
-                    <span className="text-accent">৳{cartTotal.toLocaleString()}</span>
+                    <span className="text-accent">৳{grandTotal.toLocaleString()}</span>
                   </div>
                 </div>
 
