@@ -41,7 +41,7 @@ export default function Checkout() {
     );
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     const newOrder = {
       id: `#ORD-${Math.floor(1000 + Math.random() * 9000)}`,
@@ -188,7 +188,7 @@ export default function Checkout() {
                 
                 <div className="space-y-4">
                   {items.map((item) => (
-                    <div key={item._id} className="flex justify-between items-start text-sm">
+                    <div key={item.productId} className="flex justify-between items-start text-sm">
                       <span className="font-medium max-w-[200px]">{item.name} × {item.quantity}</span>
                       <span className="font-bold">৳{(item.price * item.quantity).toLocaleString()}</span>
                     </div>
