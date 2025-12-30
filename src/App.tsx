@@ -8,6 +8,7 @@ import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
 import Collections from "./pages/Collections";
 import About from "./pages/About";
+import Checkout from "./pages/Checkout";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminProducts from "./pages/admin/Products";
 import AdminOrders from "./pages/admin/Orders";
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/product/:slug" element={<ProductDetail />} />
           <Route path="/collections" element={<Collections />} />
           <Route path="/about" element={<About />} />
+          <Route path="/checkout" element={<Checkout />} />
           
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminDashboard />} />
