@@ -66,15 +66,16 @@ export default function ProductDetail() {
     .slice(0, 4);
 
   const handleAddToCart = () => {
-    addItem({
-      productId: product._id,
-      name: product.name,
-      price: product.salePrice || product.price,
-      image: product.images[0],
-      size: selectedSize,
-      color: selectedColor?.name || product.colors[0].name,
-      quantity: quantity
-    });
+    for (let i = 0; i < quantity; i++) {
+      addItem({
+        productId: product._id,
+        name: product.name,
+        price: product.salePrice || product.price,
+        image: product.images[0],
+        size: selectedSize,
+        color: selectedColor?.name || product.colors[0].name,
+      });
+    }
     toast.success(`${product.name} added to cart`);
   };
 
