@@ -190,8 +190,8 @@ export function CartDrawer() {
 
                   {/* Actions */}
                   <div className="space-y-2">
-                    <Button className="w-full magnetic-btn" size="lg">
-                      Checkout
+                    <Button className="w-full magnetic-btn" size="lg" onClick={() => { closeCart(); }} asChild>
+                      <Link to="/checkout">Checkout</Link>
                     </Button>
                     <Button
                       variant="outline"
