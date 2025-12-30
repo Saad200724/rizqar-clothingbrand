@@ -31,7 +31,7 @@ const heroSlides: HeroSlide[] = [
     subtitle: "Premium Outerwear for the Modern Man",
     cta: "Explore",
     link: "/shop?category=outerwear-jackets",
-    image: "https://images.unsplash.com/photo-1544923246-77307dd628b7?w=1920&q=80",
+    image: "/attached_assets/stock_images/modern_premium_winte_69182a09.jpg",
   },
   {
     id: 3,
