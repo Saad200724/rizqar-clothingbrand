@@ -46,7 +46,7 @@ export default function AdminLogin() {
               <Input
                 id="email"
                 type="email"
-                placeholder="admin@rizqar.me"
+                placeholder=""
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="bg-background border-white/10"
@@ -59,7 +59,7 @@ export default function AdminLogin() {
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder=""
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="bg-background border-white/10"
