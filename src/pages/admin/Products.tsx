@@ -1,18 +1,10 @@
 import { AdminLayout } from "@/components/admin/AdminLayout";
-import { Plus, Search, Filter, MoreHorizontal, Edit2, Trash2, Eye, X } from "lucide-react";
+import { Plus, Search, Edit2, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { products as initialProducts, Product } from "@/data/products";
 import { toast } from "sonner";
+import { ProductFormDialog } from "@/components/admin/ProductFormDialog";
 
 export default function AdminProducts() {
   const [products, setProducts] = useState<Product[]>(() => {
@@ -37,7 +29,21 @@ export default function AdminProducts() {
 
   const handleOpenAdd = () => {
     setEditingProduct(null);
-    setFormData({ name: "", price: 0, category: "", stock: 0, images: ["https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800"] });
+    setFormData({
+      name: "",
+      price: 0,
+      category: "",
+      categorySlug: "",
+      stock: 0,
+      images: [""],
+      sizes: ["S", "M", "L", "XL"],
+      colors: [{ name: "Black", hex: "#000000" }],
+      description: "",
+      fabricOrigin: "",
+      careInstructions: [],
+      isFeatured: false,
+      isNew: true,
+    });
     setIsDialogOpen(true);
   };
 
@@ -53,14 +59,21 @@ export default function AdminProducts() {
   };
 
   const handleSave = () => {
+    if (!formData.name || !formData.price || !formData.category || formData.stock === undefined) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+
     if (editingProduct) {
       setProducts(products.map(p => p._id === editingProduct._id ? { ...p, ...formData } as Product : p));
       toast.success("Product updated successfully");
     } else {
+      const categorySlug = formData.category?.toLowerCase().replace(/ /g, "-") || "";
       const newProduct = {
         ...formData,
         _id: Math.random().toString(36).substr(2, 9),
         slug: formData.name?.toLowerCase().replace(/ /g, "-"),
+        categorySlug: categorySlug,
         createdAt: new Date().toISOString(),
       } as Product;
       setProducts([newProduct, ...products]);
@@ -140,34 +153,14 @@ export default function AdminProducts() {
         </div>
       </div>
 
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="bg-card text-white border-white/10 sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>{editingProduct ? "Edit Product" : "Add New Product"}</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="bg-background border-white/10" />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="price">Price (৳)</Label>
-              <Input id="price" type="number" value={formData.price} onChange={(e) => setFormData({...formData, price: Number(e.target.value)})} className="bg-background border-white/10" />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="category">Category</Label>
-              <Input id="category" value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} className="bg-background border-white/10" />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="stock">Stock</Label>
-              <Input id="stock" type="number" value={formData.stock} onChange={(e) => setFormData({...formData, stock: Number(e.target.value)})} className="bg-background border-white/10" />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button onClick={handleSave} className="bg-accent text-background w-full">Save Product</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <ProductFormDialog
+        open={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+        editingProduct={editingProduct}
+        formData={formData}
+        setFormData={setFormData}
+        onSave={handleSave}
+      />
     </AdminLayout>
   );
 }
