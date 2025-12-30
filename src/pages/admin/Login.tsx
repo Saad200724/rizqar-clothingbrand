@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { useAdminAuth } from "@/contexts/AdminAuthContext";
 
 const ADMIN_EMAIL = "admin@rizqar.me";
 const ADMIN_PASSWORD = "pass-rizqar@#sahol";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
+  const { authenticate } = useAdminAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +24,7 @@ export default function AdminLogin() {
       if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
         localStorage.setItem("admin_authenticated", "true");
         localStorage.setItem("admin_login_time", new Date().toISOString());
+        authenticate();
         toast.success("Login successful!");
         navigate("/admin");
       } else {
