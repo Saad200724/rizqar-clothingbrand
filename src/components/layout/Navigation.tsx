@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ShoppingBag, Search, User } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import rizqarLogo from "@/assets/rizqar-logo.jpeg";
+import { useNavigate } from "react-router-dom";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -16,8 +17,9 @@ export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const { openCart, getItemCount } = useCartStore();
+  const { getItemCount } = useCartStore();
   const itemCount = getItemCount();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -114,7 +116,7 @@ export function Navigation() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={openCart}
+                onClick={() => navigate("/cart")}
                 className="relative p-2.5 rounded-xl hover:bg-secondary transition-colors"
                 aria-label="Cart"
               >
