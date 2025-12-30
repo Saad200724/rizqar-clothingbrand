@@ -83,7 +83,7 @@ export const products: Product[] = [
     stock: 45,
     isFeatured: true,
     isNew: true,
-    createdAt: "2024-01-15T00:00:00Z",
+    createdAt: "2026-01-15T00:00:00Z",
   },
   {
     _id: "prod-002",
@@ -109,7 +109,7 @@ export const products: Product[] = [
     stock: 28,
     isFeatured: true,
     isNew: false,
-    createdAt: "2024-01-10T00:00:00Z",
+    createdAt: "2026-01-10T00:00:00Z",
   },
   {
     _id: "prod-003",
@@ -135,7 +135,7 @@ export const products: Product[] = [
     stock: 15,
     isFeatured: true,
     isNew: true,
-    createdAt: "2024-01-20T00:00:00Z",
+    createdAt: "2026-01-20T00:00:00Z",
   },
   {
     _id: "prod-004",

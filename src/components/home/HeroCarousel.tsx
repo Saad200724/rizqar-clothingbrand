@@ -23,7 +23,7 @@ const heroSlides: HeroSlide[] = [
     cta: "Shop Collection",
     link: "/shop",
     image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1920&q=80",
-    badge: "NEW COLLECTION 2024",
+    badge: "NEW COLLECTION 2026",
   },
 ];
 
