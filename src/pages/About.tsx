@@ -16,13 +16,13 @@ export default function About() {
             
             <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
               <div className="rounded-2xl overflow-hidden aspect-[4/5] bg-secondary border border-white/10">
-                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800" alt="Mahmud Sahol" className="w-full h-full object-cover" />
+                 <img src="/attached_assets/image_1767080539972.png" alt="Mahmud Sahol" className="w-full h-full object-cover" />
               </div>
               <div className="space-y-6">
                 <h2 className="text-3xl font-bold text-accent">The Visionary</h2>
                 <h3 className="text-xl font-semibold">Mahmud Sahol</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Founded in 2016 by <strong>Mahmud Sahol</strong>, RIZQAR was born from a desire to bridge the gap between traditional modest values and contemporary global fashion.
+                  Founded in 2025 by <strong>Mahmud Sahol</strong>, RIZQAR was born from a desire to bridge the gap between traditional modest values and contemporary global fashion.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
                   Mahmud's vision was clear: to empower the modern Muslim man with clothing that doesn't compromise on style, quality, or faith. Every stitch in a RIZQAR garment reflects our founder's dedication to craftsmanship and community.

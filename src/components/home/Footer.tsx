@@ -19,7 +19,7 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-sm">
-              Crafting premium modest fashion since 2016. Our mission is to provide the modern Muslim man with sophisticated attire that honors tradition through contemporary design.
+              Crafting premium modest fashion since 2025. Our mission is to provide the modern Muslim man with sophisticated attire that honors tradition through contemporary design.
             </p>
             <div className="flex items-center gap-4">
               <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-accent hover:text-background hover:border-accent transition-all duration-300">
@@ -89,7 +89,7 @@ export function Footer() {
           </div>
           
           <p className="text-muted-foreground text-[10px] uppercase tracking-[0.2em]">
-            © 2026 RIZQAR EST. 2016 • Dhaka, Bangladesh
+            © 2026 RIZQAR EST. 2025 • Dhaka, Bangladesh
           </p>
           
           <div className="flex gap-6">
