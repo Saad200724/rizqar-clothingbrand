@@ -16,14 +16,14 @@ export function Footer() {
                 className="h-12 w-auto rounded-lg"
               />
             </Link>
-            <p className="text-xs text-muted-foreground mb-4">
-              Dedicated to providing quality products that align with faith, culture, and modest living.
+            <p className="text-xs text-muted-foreground mb-4 leading-relaxed">
+              Empowering the Muslim lifestyle since 2016. Dedicated to providing quality products that align with faith, culture, and modern living.
             </p>
             {/* Payment Icons Placeholder */}
             <div className="flex gap-2">
-              <div className="w-10 h-6 bg-secondary rounded flex items-center justify-center text-[8px] text-muted-foreground">VISA</div>
-              <div className="w-10 h-6 bg-secondary rounded flex items-center justify-center text-[8px] text-muted-foreground">MC</div>
-              <div className="w-10 h-6 bg-secondary rounded flex items-center justify-center text-[8px] text-muted-foreground">AMEX</div>
+              <div className="px-2 py-1 bg-secondary rounded text-[8px] font-bold text-muted-foreground">VISA</div>
+              <div className="px-2 py-1 bg-secondary rounded text-[8px] font-bold text-muted-foreground">BKASH</div>
+              <div className="px-2 py-1 bg-secondary rounded text-[8px] font-bold text-muted-foreground">CASH ON DELIVERY</div>
             </div>
           </div>
 

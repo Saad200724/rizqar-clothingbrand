@@ -118,13 +118,13 @@ function ProductCard({ product, index }: ProductCardProps) {
         <div className="flex items-center gap-2">
           {product.salePrice ? (
             <>
-              <span className="font-bold">£{product.salePrice}</span>
+              <span className="font-bold">৳{product.salePrice}</span>
               <span className="text-sm text-muted-foreground line-through">
-                £{product.price}
+                ৳{product.price}
               </span>
             </>
           ) : (
-            <span className="font-bold">£{product.price}</span>
+            <span className="font-bold">৳{product.price}</span>
           )}
         </div>
 

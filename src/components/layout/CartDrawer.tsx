@@ -148,7 +148,7 @@ export function CartDrawer() {
 
                             {/* Price */}
                             <span className="font-semibold">
-                              £{(item.price * item.quantity).toFixed(2)}
+                              ৳{(item.price * item.quantity).toFixed(2)}
                             </span>
                           </div>
                         </div>
@@ -165,7 +165,7 @@ export function CartDrawer() {
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Subtotal</span>
-                      <span>£{subtotal.toFixed(2)}</span>
+                      <span>৳{subtotal.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Shipping</span>
@@ -173,18 +173,18 @@ export function CartDrawer() {
                         {shipping === 0 ? (
                           <span className="text-green-500">Free</span>
                         ) : (
-                          `£${shipping.toFixed(2)}`
+                          `৳${shipping.toFixed(2)}`
                         )}
                       </span>
                     </div>
                     {shipping > 0 && (
                       <p className="text-xs text-muted-foreground">
-                        Free shipping on orders over £150
+                        Free shipping on orders over ৳1500
                       </p>
                     )}
                     <div className="flex justify-between font-semibold pt-2 border-t border-border">
                       <span>Total</span>
-                      <span>£{total.toFixed(2)}</span>
+                      <span>৳{total.toFixed(2)}</span>
                     </div>
                   </div>
 

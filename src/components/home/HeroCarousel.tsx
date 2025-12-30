@@ -25,22 +25,6 @@ const heroSlides: HeroSlide[] = [
     image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1920&q=80",
     badge: "NEW COLLECTION 2024",
   },
-  {
-    id: 2,
-    title: "WINTER EDIT",
-    subtitle: "Premium Outerwear for the Modern Man",
-    cta: "Explore",
-    link: "/shop?category=outerwear-jackets",
-    image: "/attached_assets/stock_images/modern_premium_winte_69182a09.jpg",
-  },
-  {
-    id: 3,
-    title: "ESSENTIALS",
-    subtitle: "Timeless Thobes & Kurtis",
-    cta: "Discover",
-    link: "/shop?category=thobes-kurtis",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1920&q=80",
-  },
 ];
 
 export function HeroCarousel() {
