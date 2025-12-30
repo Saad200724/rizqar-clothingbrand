@@ -121,7 +121,7 @@ export default function About() {
            <div className="container mx-auto px-4">
               <div className="grid md:grid-cols-3 gap-16 text-center">
                  {[
-                   { icon: Globe, label: "Global Reach", value: "15+ Countries", desc: "Shipping our vision worldwide" },
+                   { icon: Globe, label: "Heritage", value: "Bangladesh", desc: "Proudly rooted in Dhaka" },
                    { icon: Award, label: "Quality First", value: "Premium Craft", desc: "Masterfully sourced materials" },
                    { icon: Users, label: "Community", value: "10k+ Members", desc: "The growing RIZQAR circle" }
                  ].map((item, i) => (
