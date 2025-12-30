@@ -22,7 +22,7 @@ const heroSlides: HeroSlide[] = [
     subtitle: "Men's Modest Fashion, Elevated",
     cta: "Shop Collection",
     link: "/shop",
-    image: "/attached_assets/stock_images/premium_man_luxury_d_4cdbcd97.jpg",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1920&q=80",
     badge: "NEW COLLECTION 2024",
   },
   {
