@@ -9,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { CheckCircle2, ShoppingBag } from "lucide-react";
 
 export default function Checkout() {
-  const { items, clearCart, total } = useCartStore();
+  const { items, clearCart } = useCartStore();
+  const cartTotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const [isOrdered, setIsOrdered] = useState(false);
   const navigate = useNavigate();
   
@@ -38,7 +39,7 @@ export default function Checkout() {
       id: `#ORD-${Math.floor(1000 + Math.random() * 9000)}`,
       customer: formData.name,
       date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-      total: `৳${total().toLocaleString()}`,
+      total: `৳${cartTotal.toLocaleString()}`,
       status: "Pending",
       items: items.length
     };
@@ -88,7 +89,7 @@ export default function Checkout() {
               <div className="p-4 bg-accent/10 rounded-xl border border-accent/20">
                 <p className="text-sm font-bold text-accent">Payment: Cash on Delivery (COD)</p>
               </div>
-              <Button type="submit" className="w-full bg-accent text-background py-6 rounded-full font-bold">Confirm Order (৳{total().toLocaleString()})</Button>
+              <Button type="submit" className="w-full bg-accent text-background py-6 rounded-full font-bold">Confirm Order (৳{cartTotal.toLocaleString()})</Button>
             </form>
           </div>
           <div className="bg-card border border-white/10 rounded-[2rem] p-8 h-fit">
@@ -96,7 +97,7 @@ export default function Checkout() {
             <div className="space-y-4">
               <div className="flex justify-between font-bold text-xl pt-4 border-t border-white/10">
                 <span>Total</span>
-                <span className="text-accent">৳{total().toLocaleString()}</span>
+                <span className="text-accent">৳{cartTotal.toLocaleString()}</span>
               </div>
             </div>
           </div>
