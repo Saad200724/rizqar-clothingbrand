@@ -5,6 +5,7 @@ import { Menu, X, ShoppingBag, Search, User } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import rizqarLogo from "@/assets/rizqar-logo.jpeg";
 import { useNavigate } from "react-router-dom";
+import { SearchModal } from "../SearchModal";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -16,6 +17,7 @@ const navLinks = [
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
   const { getItemCount } = useCartStore();
   const itemCount = getItemCount();
@@ -98,6 +100,7 @@ export function Navigation() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => setIsSearchOpen(true)}
                 className="p-2.5 rounded-xl hover:bg-secondary transition-colors hidden sm:flex"
                 aria-label="Search"
               >
@@ -199,6 +202,9 @@ export function Navigation() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Search Modal */}
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   );
 }
