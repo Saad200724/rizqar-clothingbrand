@@ -5,7 +5,8 @@ import { ArrowLeft, Heart, Minus, Plus, ShoppingCart, Truck, RotateCcw, Shield, 
 import { Button } from "@/components/ui/button";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Footer } from "@/components/home/Footer";
-import { getProductBySlug, getProductsByCategory, Product, products } from "@/data/products";
+import { Product } from "@/data/products";
+import { getProductBySlug, getProductsByCategory } from "@/hooks/useProducts";
 import { useCartStore } from "@/store/cartStore";
 import { toast } from "sonner";
 import {
@@ -37,7 +38,8 @@ function ProductCard({ product }: { product: Product }) {
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const product = getProductBySlug(slug || "");
+  // Always read from localStorage to get latest admin changes
+  const product = useMemo(() => getProductBySlug(slug || ""), [slug]);
   
   const [selectedSize, setSelectedSize] = useState(product?.sizes[0] || "");
   const [selectedColor, setSelectedColor] = useState(product?.colors[0] || null);
@@ -61,9 +63,14 @@ export default function ProductDetail() {
     );
   }
 
-  const relatedProducts = getProductsByCategory(product.categorySlug)
-    .filter(p => p._id !== product._id)
-    .slice(0, 4);
+  const relatedProducts = useMemo(() => 
+    product 
+      ? getProductsByCategory(product.categorySlug)
+          .filter(p => p._id !== product._id)
+          .slice(0, 4)
+      : [],
+    [product?.categorySlug, product?._id]
+  );
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {

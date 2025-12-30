@@ -5,7 +5,7 @@ import { Filter, X, ChevronDown, ShoppingCart, Heart, Grid3X3, LayoutGrid } from
 import { Button } from "@/components/ui/button";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Footer } from "@/components/home/Footer";
-import { products, categories, Product } from "@/data/products";
+import { categories, Product, products as defaultProducts } from "@/data/products";
 import { useCartStore } from "@/store/cartStore";
 import { toast } from "sonner";
 import {
@@ -151,6 +151,12 @@ export default function Shop() {
   const [sortBy, setSortBy] = useState("featured");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  
+  // Always read from localStorage to get latest admin changes
+  const products = useMemo(() => {
+    const saved = localStorage.getItem("admin_products");
+    return saved ? JSON.parse(saved) : defaultProducts;
+  }, []);
   
   const categoryFilter = searchParams.get("category") || "";
 

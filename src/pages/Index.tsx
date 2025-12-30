@@ -5,13 +5,16 @@ import { CategoryGrid } from "@/components/home/CategoryGrid";
 import { ProductSection } from "@/components/home/ProductSection";
 import { Newsletter } from "@/components/home/Newsletter";
 import { Footer } from "@/components/home/Footer";
-import { getNewProducts, getProductsByCategory, getFeaturedProducts, categories } from "@/data/products";
+import { categories } from "@/data/products";
+import { getNewProducts, getProductsByCategory, getFeaturedProducts } from "@/hooks/useProducts";
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 import rizqarLogo from "@/assets/rizqar-logo.jpeg";
 
 export default function Index() {
-  const newArrivals = getNewProducts();
-  const featuredProducts = getFeaturedProducts();
+  // Always read from localStorage to get latest admin changes
+  const newArrivals = useMemo(() => getNewProducts(), []);
+  const featuredProducts = useMemo(() => getFeaturedProducts(), []);
   
   return (
     <MainLayout>
