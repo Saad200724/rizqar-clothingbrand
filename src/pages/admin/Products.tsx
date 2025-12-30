@@ -1,7 +1,7 @@
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Plus, Search, Filter, MoreHorizontal, Edit2, Trash2, Eye, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +15,10 @@ import { products as initialProducts, Product } from "@/data/products";
 import { toast } from "sonner";
 
 export default function AdminProducts() {
-  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [products, setProducts] = useState<Product[]>(() => {
+    const saved = localStorage.getItem("admin_products");
+    return saved ? JSON.parse(saved) : initialProducts;
+  });
   const [searchTerm, setSearchTerm] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
@@ -27,6 +30,10 @@ export default function AdminProducts() {
     stock: 0,
     images: [""]
   });
+
+  useEffect(() => {
+    localStorage.setItem("admin_products", JSON.stringify(products));
+  }, [products]);
 
   const handleOpenAdd = () => {
     setEditingProduct(null);
