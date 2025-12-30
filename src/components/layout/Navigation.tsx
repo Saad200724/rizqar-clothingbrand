@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ShoppingBag, Search, User } from "lucide-react";
+import { Menu, X, ShoppingBag, Search, User, Settings } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import rizqarLogo from "@/assets/rizqar-logo.jpeg";
 
@@ -101,6 +101,18 @@ export function Navigation() {
               >
                 <Search className="w-5 h-5" />
               </motion.button>
+
+              <Link to="/admin/login">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-2.5 rounded-xl hover:bg-secondary transition-colors hidden sm:flex"
+                  aria-label="Admin"
+                  title="Admin Panel"
+                >
+                  <Settings className="w-5 h-5" />
+                </motion.button>
+              </Link>
 
               <motion.button
                 whileHover={{ scale: 1.05 }}

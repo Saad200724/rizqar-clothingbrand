@@ -38,10 +38,15 @@ export function AdminLayout({ children }: AdminLayoutProps) {
     <div className="flex min-h-screen bg-[#050505] text-white font-['Sora']">
       {/* Sidebar */}
       <aside className="w-64 border-r border-white/10 flex flex-col">
-        <div className="p-6 border-b border-white/10">
+        <div className="p-6 border-b border-white/10 space-y-3">
           <Link to="/" className="flex items-center gap-3">
             <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center font-bold text-background">R</div>
             <span className="text-xl font-bold tracking-tight">RIZQAR <span className="text-[10px] text-accent font-normal px-2 py-0.5 rounded-full border border-accent/20">ADMIN</span></span>
+          </Link>
+          <Link to="/" className="block w-full">
+            <button className="w-full px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-xs font-medium text-muted-foreground hover:text-white border border-white/10">
+              ← View Website
+            </button>
           </Link>
         </div>
         
