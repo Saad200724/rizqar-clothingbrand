@@ -136,40 +136,44 @@ export function HeroCarousel() {
         </div>
       </div>
 
-      {/* Navigation Arrows - Hidden on mobile */}
-      <div className="absolute inset-y-0 left-6 right-6 z-20 hidden md:flex items-center justify-between pointer-events-none">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="pointer-events-auto glass-panel rounded-full w-12 h-12 hover:scale-110 transition-transform"
-          onClick={prevSlide}
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="pointer-events-auto glass-panel rounded-full w-12 h-12 hover:scale-110 transition-transform"
-          onClick={nextSlide}
-        >
-          <ChevronRight className="w-6 h-6" />
-        </Button>
-      </div>
+      {/* Navigation Arrows - Hidden on mobile or if only one slide */}
+      {heroSlides.length > 1 && (
+        <div className="absolute inset-y-0 left-6 right-6 z-20 hidden md:flex items-center justify-between pointer-events-none">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="pointer-events-auto glass-panel rounded-full w-12 h-12 hover:scale-110 transition-transform"
+            onClick={prevSlide}
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="pointer-events-auto glass-panel rounded-full w-12 h-12 hover:scale-110 transition-transform"
+            onClick={nextSlide}
+          >
+            <ChevronRight className="w-6 h-6" />
+          </Button>
+        </div>
+      )}
 
-      {/* Premium Dots Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-3">
-        {heroSlides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`h-1 rounded-full transition-all duration-500 ${
-              index === currentSlide
-                ? "bg-accent w-12"
-                : "bg-foreground/20 w-6 hover:bg-foreground/40"
-            }`}
-          />
-        ))}
-      </div>
+      {/* Premium Dots Indicator - Only if more than one slide */}
+      {heroSlides.length > 1 && (
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+          {heroSlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`h-1 rounded-full transition-all duration-500 ${
+                index === currentSlide
+                  ? "bg-accent w-12"
+                  : "bg-foreground/20 w-6 hover:bg-foreground/40"
+              }`}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Scroll Indicator */}
       <motion.div
