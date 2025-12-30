@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import rizqarLogo from "@/assets/rizqar-logo.jpeg";
 
 interface HeroSlide {
   id: number;
@@ -17,20 +18,20 @@ interface HeroSlide {
 const heroSlides: HeroSlide[] = [
   {
     id: 1,
-    title: "NEW ARRIVAL",
-    subtitle: "Modest Fashion Redefined",
-    cta: "Shop Now",
+    title: "THE NEW STANDARD",
+    subtitle: "Men's Modest Fashion, Elevated",
+    cta: "Shop Collection",
     link: "/shop",
-    image: "https://images.unsplash.com/photo-1617137968427-85924c800a22?w=1920&q=80",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&q=80",
     badge: "NEW COLLECTION 2024",
   },
   {
     id: 2,
     title: "WINTER EDIT",
-    subtitle: "Premium Outerwear Collection",
+    subtitle: "Premium Outerwear for the Modern Man",
     cta: "Explore",
     link: "/shop?category=outerwear-jackets",
-    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=1920&q=80",
+    image: "https://images.unsplash.com/photo-1544923246-77307dd628b7?w=1920&q=80",
   },
   {
     id: 3,
@@ -38,7 +39,7 @@ const heroSlides: HeroSlide[] = [
     subtitle: "Timeless Thobes & Kurtis",
     cta: "Discover",
     link: "/shop?category=thobes-kurtis",
-    image: "https://images.unsplash.com/photo-1589363460779-a0d894afb04a?w=1920&q=80",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1920&q=80",
   },
 ];
 
@@ -48,7 +49,7 @@ export function HeroCarousel() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 5000);
+    }, 6000);
     return () => clearInterval(timer);
   }, []);
 
@@ -57,92 +58,149 @@ export function HeroCarousel() {
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
 
   return (
-    <section className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] overflow-hidden">
+    <section className="relative h-[70vh] sm:h-[80vh] md:h-[90vh] overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
-          initial={{ opacity: 0, scale: 1.1 }}
+          initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 1 }}
           className="absolute inset-0"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/40 to-transparent z-10" />
+          {/* Premium gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/20 z-10" />
           <img
             src={heroSlides[currentSlide].image}
             alt={heroSlides[currentSlide].title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
         </motion.div>
       </AnimatePresence>
 
+      {/* Logo Watermark */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.03 }}
+        className="absolute top-1/2 right-10 -translate-y-1/2 z-10 hidden lg:block"
+      >
+        <img src={rizqarLogo} alt="" className="w-96 h-96 object-cover rounded-full" />
+      </motion.div>
+
       {/* Content */}
       <div className="relative z-20 h-full flex items-center">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-              className="max-w-lg"
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="max-w-2xl"
             >
               {heroSlides[currentSlide].badge && (
-                <span className="inline-block px-3 py-1 bg-accent/20 text-accent text-xs font-medium rounded-full mb-4 backdrop-blur-sm border border-accent/30">
+                <motion.span
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="inline-block px-4 py-1.5 bg-accent/10 text-accent text-xs font-semibold tracking-widest rounded-full mb-6 backdrop-blur-md border border-accent/20"
+                >
                   {heroSlides[currentSlide].badge}
-                </span>
+                </motion.span>
               )}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-2">
+              
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4 leading-none"
+              >
                 {heroSlides[currentSlide].title}
-              </h1>
-              <p className="text-lg sm:text-xl text-muted-foreground mb-6">
+              </motion.h1>
+              
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-8 font-light"
+              >
                 {heroSlides[currentSlide].subtitle}
-              </p>
-              <Button size="lg" className="magnetic-btn" asChild>
-                <Link to={heroSlides[currentSlide].link}>
-                  {heroSlides[currentSlide].cta}
-                </Link>
-              </Button>
+              </motion.p>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex gap-4"
+              >
+                <Button size="lg" className="magnetic-btn group px-8 py-6 text-base" asChild>
+                  <Link to={heroSlides[currentSlide].link}>
+                    {heroSlides[currentSlide].cta}
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" className="px-8 py-6 text-base glass-panel" asChild>
+                  <Link to="/shop">
+                    View All
+                  </Link>
+                </Button>
+              </motion.div>
             </motion.div>
           </AnimatePresence>
         </div>
       </div>
 
-      {/* Navigation Arrows */}
-      <div className="absolute inset-y-0 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
+      {/* Navigation Arrows - Hidden on mobile */}
+      <div className="absolute inset-y-0 left-6 right-6 z-20 hidden md:flex items-center justify-between pointer-events-none">
         <Button
           variant="ghost"
           size="icon"
-          className="pointer-events-auto glass-panel rounded-full w-10 h-10"
+          className="pointer-events-auto glass-panel rounded-full w-12 h-12 hover:scale-110 transition-transform"
           onClick={prevSlide}
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-6 h-6" />
         </Button>
         <Button
           variant="ghost"
           size="icon"
-          className="pointer-events-auto glass-panel rounded-full w-10 h-10"
+          className="pointer-events-auto glass-panel rounded-full w-12 h-12 hover:scale-110 transition-transform"
           onClick={nextSlide}
         >
-          <ChevronRight className="w-5 h-5" />
+          <ChevronRight className="w-6 h-6" />
         </Button>
       </div>
 
-      {/* Dots Indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      {/* Premium Dots Indicator */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-3">
         {heroSlides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+            className={`h-1 rounded-full transition-all duration-500 ${
               index === currentSlide
-                ? "bg-foreground w-8"
-                : "bg-foreground/30 hover:bg-foreground/50"
+                ? "bg-accent w-12"
+                : "bg-foreground/20 w-6 hover:bg-foreground/40"
             }`}
           />
         ))}
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-10 right-10 z-20 hidden lg:flex flex-col items-center gap-2"
+      >
+        <span className="text-xs text-muted-foreground tracking-widest rotate-90 origin-center translate-y-8">SCROLL</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="w-px h-16 bg-gradient-to-b from-accent to-transparent"
+        />
+      </motion.div>
     </section>
   );
 }
