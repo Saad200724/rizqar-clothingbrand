@@ -89,7 +89,7 @@ export function Footer() {
           </div>
           
           <p className="text-muted-foreground text-[10px] uppercase tracking-[0.2em]">
-            © 2026 RIZQAR EST. 2025 • Dhaka, Bangladesh
+            © 2026 RIZQAR EST. 2025 • Dhaka, Bangladesh • Powered by <a href="https://znforge.dev" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">ZnForge</a>
           </p>
           
           <div className="flex gap-6">
