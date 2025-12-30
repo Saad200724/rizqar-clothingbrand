@@ -1,5 +1,6 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAdminAuth } from "@/contexts/AdminAuthContext";
 import { 
   LayoutDashboard, 
   Package, 
@@ -25,6 +26,13 @@ const sidebarLinks = [
 
 export function AdminLayout({ children }: AdminLayoutProps) {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAdminAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/admin/login");
+  };
 
   return (
     <div className="flex min-h-screen bg-[#050505] text-white font-['Sora']">
@@ -64,7 +72,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
         </nav>
 
         <div className="p-4 border-t border-white/10">
-          <button className="flex items-center gap-3 px-4 py-3 w-full text-muted-foreground hover:text-destructive transition-colors">
+          <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-3 w-full text-muted-foreground hover:text-destructive transition-colors">
             <LogOut className="w-5 h-5" />
             <span>Logout</span>
           </button>
