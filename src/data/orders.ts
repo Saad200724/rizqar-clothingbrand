@@ -114,14 +114,6 @@ export const orders: Order[] = [
         quantity: 1,
         price: 249,
       },
-      {
-        productId: "prod-005",
-        productName: "Zenith Crew Sweatshirt",
-        size: "M",
-        color: "Stone",
-        quantity: 1,
-        price: 99,
-      },
     ],
     status: "processing",
     shippingAddress: {
@@ -207,14 +199,12 @@ export const orders: Order[] = [
   },
 ];
 
-export const getOrdersByStatus = (status: Order["status"]) =>
-  orders.filter((o) => o.status === status);
+export const getOrdersByStatus = (status: Order["status"]) => orders.filter((o) => o.status === status);
 
 export const getRecentOrders = (limit: number = 5) =>
   [...orders].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, limit);
 
-export const getTotalRevenue = () =>
-  orders.reduce((sum, order) => sum + order.total, 0);
+export const getTotalRevenue = () => orders.reduce((sum, order) => sum + order.total, 0);
 
 export const getOrderStats = () => ({
   total: orders.length,
